@@ -60,6 +60,7 @@ type Semvers struct {
 	GitPath           string `short:"g" long:"git" default:"git" description:"git path"`
 	WithPreRelease    bool   `short:"P" long:"with-pre-release" description:"display pre-release versions"`
 	WithBuildMetadata bool   `short:"B" long:"with-build-metadata" description:"display build-metadata versions"`
+	VerPrefix         string `          long:"ver-prefix" description:"custom version prefix (ex. foo-1.2.3)"`
 }
 
 // VersionStrings returns version strings
@@ -103,6 +104,12 @@ func (sv *Semvers) parseVersions(out string) []string {
 	var versions []*semver.Version
 	for _, tag := range rawTags {
 		t := strings.TrimSpace(tag)
+		if sv.VerPrefix != "" {
+			if !strings.HasPrefix(t, sv.VerPrefix) {
+				continue
+			}
+			t = strings.TrimPrefix(t, sv.VerPrefix)
+		}
 		if sv.reg().MatchString(t) {
 			v, _ := semver.NewVersion(t)
 			versions = append(versions, v)
@@ -111,7 +118,7 @@ func (sv *Semvers) parseVersions(out string) []string {
 	sort.Sort(sort.Reverse(semver.Collection(versions)))
 	var vers = make([]string, len(versions))
 	for i, v := range versions {
-		vers[i] = v.Original()
+		vers[i] = sv.VerPrefix + v.Original()
 	}
 	return vers
 }
