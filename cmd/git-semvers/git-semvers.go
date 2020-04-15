@@ -3,7 +3,7 @@ package main
 import (
 	"os"
 
-	"github.com/Songmu/gitsemvers"
+	"github.com/vvatanabe/gitsemvers"
 )
 
 func main() {
