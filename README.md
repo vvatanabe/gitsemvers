@@ -14,11 +14,15 @@ semvers := sv.VersionStrings()
 
 ## Command Line Tool
 
-    % go get github.com/Songmu/gitsemvers/cmd/git-semvers
+    % go get github.com/vvatanabe/gitsemvers/cmd/git-semvers
     % git-semvers
-    v0.9.0
+    v0.0.1
     ...
+
+## Origin Author
+
+[Songmu](https://github.com/Songmu)
 
 ## Author
 
-[Songmu](https://github.com/Songmu)
+[vvatanabe](https://github.com/vvatanabe)
